@@ -1,76 +1,232 @@
-<!doctype html>
-<html>
-  <head>
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no">
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
     <meta name="mobile-web-app-capable" content="yes">
     <meta name="apple-mobile-web-app-capable" content="yes">
     <link rel="icon" type="image/png" sizes="32x32" href="favicon-32x32.png">
     <link rel="icon" type="image/png" sizes="96x96" href="favicon-96x96.png">
-    <link rel="stylesheet" href="css/common.css">
+    <title>Deco VR</title>
 
-    <title>Immersive VR Session</title>
-  </head>
-  <body>
-    <h1>Deco VR</h1>
+    <script type="module" src="https://ajax.googleapis.com/ajax/libs/model-viewer/3.5.0/model-viewer.min.js"></script>
 
-    <p id="platform-hint" hidden></p>
-
-    <section class="platform-links" data-platform="ios" hidden>
-      <a rel="ar" href="https://github.com/cchschmch/3DScenes/raw/refs/heads/main/decors-hiver.usdz">Deco Hiver (AR)</a>
-      <br>
-      <a rel="ar" href="https://github.com/cchschmch/3DScenes/raw/refs/heads/main/deco_paques.usdz">Deco Paques (AR)</a>
-      <br>
-      <a rel="ar" href="https://github.com/cchschmch/3DScenes/raw/refs/heads/main/deco_automne.usdz">Deco Automne (AR)</a>
-    </section>
-
-    <section class="platform-links" data-platform="android" hidden>
-      <a href="intent://arvr.google.com/scene-viewer/1.0?file=https://github.com/cchschmch/3DScenes/raw/refs/heads/main/decors-hiver.glb#Intent;scheme=https;package=com.google.android.googlequicksearchbox;action=android.intent.action.VIEW;S.browser_fallback_url=https://developers.google.com/ar;end;">Deco Hiver (AR)</a>
-      <br>
-      <a href="intent://arvr.google.com/scene-viewer/1.0?file=https://github.com/cchschmch/3DScenes/raw/refs/heads/main/deco_paques.glb#Intent;scheme=https;package=com.google.android.googlequicksearchbox;action=android.intent.action.VIEW;S.browser_fallback_url=https://developers.google.com/ar;end;">Deco Paques (AR)</a>
-      <br>
-      <a href="intent://arvr.google.com/scene-viewer/1.0?file=https://github.com/cchschmch/3DScenes/raw/refs/heads/main/deco_automne.glb#Intent;scheme=https;package=com.google.android.googlequicksearchbox;action=android.intent.action.VIEW;S.browser_fallback_url=https://developers.google.com/ar;end;">Deco Automne (AR)</a>
-    </section>
-
-    <section class="platform-links" data-platform="other" hidden>
-      <p>Open this page on an iPhone, iPad, or Android phone to view in AR.</p>
-      <p><strong>Apple (Quick Look)</strong></p>
-      <a rel="ar" href="https://github.com/cchschmch/3DScenes/raw/refs/heads/main/decors-hiver.usdz">Deco Hiver iOS</a>
-      <br>
-      <a rel="ar" href="https://github.com/cchschmch/3DScenes/raw/refs/heads/main/deco_paques.usdz">Deco Paques iOS</a>
-      <br>
-      <a rel="ar" href="https://github.com/cchschmch/3DScenes/raw/refs/heads/main/deco_automne.usdz">Deco Automne iOS</a>
-      <br>
-      <p><strong>Android (Scene Viewer)</strong></p>
-      <a href="intent://arvr.google.com/scene-viewer/1.0?file=https://github.com/cchschmch/3DScenes/raw/refs/heads/main/decors-hiver.glb#Intent;scheme=https;package=com.google.android.googlequicksearchbox;action=android.intent.action.VIEW;S.browser_fallback_url=https://developers.google.com/ar;end;">Deco Hiver Android</a>
-      <br>
-      <a href="intent://arvr.google.com/scene-viewer/1.0?file=https://github.com/cchschmch/3DScenes/raw/refs/heads/main/deco_paques.glb#Intent;scheme=https;package=com.google.android.googlequicksearchbox;action=android.intent.action.VIEW;S.browser_fallback_url=https://developers.google.com/ar;end;">Deco Paques Android</a>
-      <br>
-      <a href="intent://arvr.google.com/scene-viewer/1.0?file=https://github.com/cchschmch/3DScenes/raw/refs/heads/main/deco_automne.glb#Intent;scheme=https;package=com.google.android.googlequicksearchbox;action=android.intent.action.VIEW;S.browser_fallback_url=https://developers.google.com/ar;end;">Deco Automne Android</a>
-    </section>
-
-    <script>
-      (function () {
-        var ua = navigator.userAgent || '';
-        var isIOS =
-          /iPad|iPhone|iPod/.test(ua) ||
-          (navigator.platform === 'MacIntel' && navigator.maxTouchPoints > 1);
-        var isAndroid = /Android/i.test(ua);
-        var platform = isIOS ? 'ios' : isAndroid ? 'android' : 'other';
-
-        var hint = document.getElementById('platform-hint');
-        if (platform === 'ios') {
-          hint.textContent = 'Tap a scene to open in AR (Apple Quick Look).';
-          hint.hidden = false;
-        } else if (platform === 'android') {
-          hint.textContent = 'Tap a scene to open in AR (Google Scene Viewer).';
-          hint.hidden = false;
+    <style>
+        :root {
+            --bg-color: #0f172a;
+            --card-bg: #1e293b;
+            --text-main: #f8fafc;
+            --text-muted: #94a3b8;
+            --accent: #6366f1;
         }
 
-        document.querySelectorAll('.platform-links[data-platform="' + platform + '"]').forEach(function (el) {
-          el.hidden = false;
-        });
-      })();
-    </script>
-  </body>
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            background-color: var(--bg-color);
+            color: var(--text-main);
+            margin: 0;
+            padding: 2rem 1rem;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+
+        header {
+            text-align: center;
+            margin-bottom: 3rem;
+            max-width: 600px;
+        }
+
+        h1 {
+            font-size: 2.5rem;
+            margin-bottom: 0.5rem;
+            background: linear-gradient(to right, #818cf8, #c084fc);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        p {
+            color: var(--text-muted);
+            line-height: 1.5;
+        }
+
+        .scene-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2rem;
+            width: 100%;
+            max-width: 1200px;
+        }
+
+        .scene-card {
+            background-color: var(--card-bg);
+            border-radius: 16px;
+            overflow: hidden;
+            border: 1px solid #334155;
+            display: flex;
+            flex-direction: column;
+            transition: transform 0.2s ease, border-color 0.2s ease;
+        }
+
+        .scene-card:hover {
+            transform: translateY(-4px);
+            border-color: #475569;
+        }
+
+        .card-visual {
+            position: relative;
+            width: 100%;
+            height: 300px;
+            background-color: #111827;
+        }
+
+        .card-illustration {
+            position: absolute;
+            inset: 0;
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            display: block;
+            pointer-events: none;
+        }
+
+        .card-visual model-viewer {
+            position: absolute;
+            inset: 0;
+            width: 100%;
+            height: 100%;
+            background-color: transparent;
+            --poster-color: transparent;
+        }
+
+        .card-info {
+            padding: 1.5rem;
+            display: flex;
+            flex-direction: column;
+            gap: 0.5rem;
+        }
+
+        .card-title {
+            font-size: 1.25rem;
+            font-weight: 600;
+            margin: 0;
+        }
+
+        .card-description {
+            font-size: 0.9rem;
+            color: var(--text-muted);
+            margin: 0;
+        }
+
+        .ar-button {
+            background-color: var(--accent);
+            border-radius: 20px;
+            padding: 8px 16px;
+            color: white;
+            border: none;
+            font-weight: 500;
+            font-size: 0.85rem;
+            position: absolute;
+            bottom: 12px;
+            right: 12px;
+            cursor: pointer;
+            box-shadow: 0 4px 12px rgba(99, 102, 241, 0.4);
+            display: flex;
+            align-items: center;
+            gap: 6px;
+        }
+
+        .ar-button:active {
+            background-color: #4f46e5;
+        }
+    </style>
+</head>
+<body>
+
+    <header>
+        <h1>Deco VR</h1>
+        <p>Explorez ces décorations en 3D. Appuyez sur <strong>Voir en AR</strong> depuis un smartphone ou une tablette pour les projeter chez vous (Quick Look sur Apple, Scene Viewer sur Android).</p>
+    </header>
+
+    <div class="scene-grid">
+
+        <div class="scene-card">
+            <div class="card-visual">
+                <img class="card-illustration" src="deco_hiver.png" alt="Aperçu déco hiver">
+                <model-viewer
+                    src="https://github.com/cchschmch/3DScenes/raw/refs/heads/main/decors-hiver.glb"
+                    ios-src="https://github.com/cchschmch/3DScenes/raw/refs/heads/main/decors-hiver.usdz"
+                    poster="deco_hiver.png"
+                    ar
+                    ar-modes="webxr scene-viewer quick-look"
+                    camera-controls
+                    touch-action="pan-y"
+                    shadow-intensity="1"
+                    alt="Décoration hivernale en réalité augmentée">
+
+                    <button slot="ar-button" class="ar-button" type="button">
+                        Voir en AR
+                    </button>
+                </model-viewer>
+            </div>
+            <div class="card-info">
+                <h2 class="card-title">Déco Hiver</h2>
+                <p class="card-description">Ambiance hivernale pour habiller votre intérieur en réalité augmentée.</p>
+            </div>
+        </div>
+
+        <div class="scene-card">
+            <div class="card-visual">
+                <img class="card-illustration" src="deco_paques.png" alt="Aperçu déco Pâques">
+                <model-viewer
+                    src="https://github.com/cchschmch/3DScenes/raw/refs/heads/main/deco_paques.glb"
+                    ios-src="https://github.com/cchschmch/3DScenes/raw/refs/heads/main/deco_paques.usdz"
+                    poster="deco_paques.png"
+                    ar
+                    ar-modes="webxr scene-viewer quick-look"
+                    camera-controls
+                    touch-action="pan-y"
+                    shadow-intensity="1"
+                    alt="Décoration de Pâques en réalité augmentée">
+
+                    <button slot="ar-button" class="ar-button" type="button">
+                        Voir en AR
+                    </button>
+                </model-viewer>
+            </div>
+            <div class="card-info">
+                <h2 class="card-title">Déco Pâques</h2>
+                <p class="card-description">Décors de fête pour visualiser la scène avant de l’installer.</p>
+            </div>
+        </div>
+
+        <div class="scene-card">
+            <div class="card-visual">
+                <img class="card-illustration" src="deco_automne.png" alt="Aperçu déco automne">
+                <model-viewer
+                    src="deco_automne.glb"
+                    ios-src="deco_automne.usdz"
+                    poster="deco_automne.png"
+                    ar
+                    ar-modes="webxr scene-viewer quick-look"
+                    camera-controls
+                    touch-action="pan-y"
+                    shadow-intensity="1"
+                    alt="Décoration d'automne en réalité augmentée">
+
+                    <button slot="ar-button" class="ar-button" type="button">
+                        Voir en AR
+                    </button>
+                </model-viewer>
+            </div>
+            <div class="card-info">
+                <h2 class="card-title">Déco Automne</h2>
+                <p class="card-description">Tons chauds et feuillages pour une ambiance automnale.</p>
+            </div>
+        </div>
+
+    </div>
+
+</body>
 </html>
